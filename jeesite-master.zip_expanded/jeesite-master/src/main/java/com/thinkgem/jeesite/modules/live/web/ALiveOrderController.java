@@ -1,0 +1,84 @@
+/**
+ * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
+ */
+package com.thinkgem.jeesite.modules.live.web;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.thinkgem.jeesite.common.config.Global;
+import com.thinkgem.jeesite.common.persistence.Page;
+import com.thinkgem.jeesite.common.web.BaseController;
+import com.thinkgem.jeesite.common.utils.StringUtils;
+import com.thinkgem.jeesite.modules.live.entity.ALiveOrder;
+import com.thinkgem.jeesite.modules.live.service.ALiveOrderService;
+
+/**
+ * 充值订单Controller
+ * @author 谢辉
+ * @version 2018-01-28
+ */
+@Controller
+@RequestMapping(value = "${adminPath}/live/aLiveOrder")
+public class ALiveOrderController extends BaseController {
+
+	@Autowired
+	private ALiveOrderService aLiveOrderService;
+	
+	@ModelAttribute
+	public ALiveOrder get(@RequestParam(required=false) String id) {
+		ALiveOrder entity = null;
+		if (StringUtils.isNotBlank(id)){
+			entity = aLiveOrderService.get(id);
+		}
+		if (entity == null){
+			entity = new ALiveOrder();
+		}
+		return entity;
+	}
+	
+	@RequiresPermissions("live:aLiveOrder:view")
+	@RequestMapping(value = {"list", ""})
+	public String list(ALiveOrder aLiveOrder, HttpServletRequest request, HttpServletResponse response, Model model) {
+		Page<ALiveOrder> page = aLiveOrderService.findPage(new Page<ALiveOrder>(request, response), aLiveOrder); 
+		model.addAttribute("page", page);
+		model.addAttribute("aLiveOrder", aLiveOrder);
+		return "modules/live/aLiveOrderList";
+	}
+
+	@RequiresPermissions("live:aLiveOrder:view")
+	@RequestMapping(value = "form")
+	public String form(ALiveOrder aLiveOrder, Model model) {
+		model.addAttribute("aLiveOrder", aLiveOrder);
+		return "modules/live/aLiveOrderForm";
+	}
+
+	@RequiresPermissions("live:aLiveOrder:edit")
+	@RequestMapping(value = "save")
+	public String save(ALiveOrder aLiveOrder, Model model, RedirectAttributes redirectAttributes) {
+		if (!beanValidator(model, aLiveOrder)){
+			return form(aLiveOrder, model);
+		}
+		aLiveOrderService.save(aLiveOrder);
+		addMessage(redirectAttributes, "保存充值订单成功");
+		return "redirect:"+Global.getAdminPath()+"/live/aLiveOrder/?repage";
+	}
+	
+	@RequiresPermissions("live:aLiveOrder:edit")
+	@RequestMapping(value = "delete")
+	public String delete(ALiveOrder aLiveOrder, RedirectAttributes redirectAttributes) {
+		aLiveOrderService.delete(aLiveOrder);
+		addMessage(redirectAttributes, "删除充值订单成功");
+		return "redirect:"+Global.getAdminPath()+"/live/aLiveOrder/?repage";
+	}
+
+}

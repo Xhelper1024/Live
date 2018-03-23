@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.live.dao.ALiveRoomsDao">
+    
+	<sql id="aLiveRoomsColumns">
+		a.id AS "id",
+		a.user_id AS "userId",
+		a.live_type_id AS "liveTypeId",
+		a.room_name AS "roomName",
+		a.room_state AS "roomState",
+		a.create_date AS "createDate"
+	</sql>
+	
+	<sql id="aLiveRoomsJoins">
+	</sql>
+    
+	<select id="get" resultType="ALiveRooms">
+		SELECT 
+			<include refid="aLiveRoomsColumns"/>
+		FROM a_live_rooms a
+		<include refid="aLiveRoomsJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ALiveRooms">
+		SELECT 
+			<include refid="aLiveRoomsColumns"/>
+		FROM a_live_rooms a
+		<include refid="aLiveRoomsJoins"/>
+		<where>
+			
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="userId != null and userId != ''">
+				AND a.user_id = #{userId}
+			</if>
+			<if test="liveTypeId != null and liveTypeId != ''">
+				AND a.live_type_id = #{liveTypeId}
+			</if>
+			<if test="roomName != null and roomName != ''">
+				AND a.room_name = #{roomName}
+			</if>
+			<if test="roomState != null and roomState != ''">
+				AND a.room_state = #{roomState}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				AND a.create_date = #{createDate}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ALiveRooms">
+		SELECT 
+			<include refid="aLiveRoomsColumns"/>
+		FROM a_live_rooms a
+		<include refid="aLiveRoomsJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO a_live_rooms(
+			user_id,
+			live_type_id,
+			room_name,
+			room_state,
+			create_date
+		) VALUES (
+			#{userId},
+			#{liveTypeId},
+			#{roomName},
+			#{roomState},
+			#{createDate}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE a_live_rooms SET 	
+			user_id = #{userId},
+			live_type_id = #{liveTypeId},
+			room_name = #{roomName},
+			room_state = #{roomState}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM a_live_rooms
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.live.dao.ALiveResvGiftsDao">
+    
+	<sql id="aLiveResvGiftsColumns">
+		a.id AS "id",
+		a.user_id AS "userId",
+		a.room_id AS "roomId",
+		a.gift_id AS "giftId",
+		a.number AS "number",
+		a.create_date AS "createDate"
+	</sql>
+	
+	<sql id="aLiveResvGiftsJoins">
+	</sql>
+    
+	<select id="get" resultType="ALiveResvGifts">
+		SELECT 
+			<include refid="aLiveResvGiftsColumns"/>
+		FROM a_live_resv_gifts a
+		<include refid="aLiveResvGiftsJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ALiveResvGifts">
+		SELECT 
+			<include refid="aLiveResvGiftsColumns"/>
+		FROM a_live_resv_gifts a
+		<include refid="aLiveResvGiftsJoins"/>
+		<where>
+			
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="userId != null and userId != ''">
+				AND a.user_id = #{userId}
+			</if>
+			<if test="roomId != null and roomId != ''">
+				AND a.room_id = #{roomId}
+			</if>
+			<if test="giftId != null and giftId != ''">
+				AND a.gift_id = #{giftId}
+			</if>
+			<if test="number != null and number != ''">
+				AND a.number = #{number}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				AND a.create_date = #{createDate}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ALiveResvGifts">
+		SELECT 
+			<include refid="aLiveResvGiftsColumns"/>
+		FROM a_live_resv_gifts a
+		<include refid="aLiveResvGiftsJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO a_live_resv_gifts(
+			user_id,
+			room_id,
+			gift_id,
+			number,
+			create_date
+		) VALUES (
+			#{userId},
+			#{roomId},
+			#{giftId},
+			#{number},
+			#{createDate}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE a_live_resv_gifts SET 	
+			user_id = #{userId},
+			room_id = #{roomId},
+			gift_id = #{giftId},
+			number = #{number}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM a_live_resv_gifts
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

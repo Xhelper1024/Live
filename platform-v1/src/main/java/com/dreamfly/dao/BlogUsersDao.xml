@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dreamfly.dao.BlogUsersDao">
+
+	<sql id="notNull">
+		<trim prefix="WHERE" suffixOverrides="AND">
+			<if test="#{t.nickname} != null and #{t.nickname} != ''">
+				nickname = #{t.nickname} AND
+			</if>
+			<if test="#{t.headImg} != null and #{t.headImg} != ''">
+				headImg = #{t.headImg} AND
+			</if>
+			<if test="#{t.sexy} != null and #{t.sexy} != ''">
+				sexy = #{t.sexy} AND
+			</if>
+			<if test="#{t.email} != null and #{t.email} != ''">
+				email = #{t.email} AND
+			</if>
+			<if test="#{t.exp} != null and #{t.exp} != ''">
+				exp = #{t.exp} AND
+			</if>
+			<if test="#{t.password} != null and #{t.password} != ''">
+				password = #{t.password} AND
+			</if>
+			<if test="#{t.createDate} != null and #{t.createDate} != ''">
+				createDate = #{t.createDate} AND
+			</if>
+		</trim>
+	</sql>
+
+	<insert id="add" parameterType="BlogUsers" useGeneratedKeys="true"
+		keyProperty="id">
+		INSERT INTO blog_users
+		VALUES
+		(#{t.nickname},
+		#{t.headImg},
+		#{t.sexy},
+		#{t.email},
+		#{t.exp},
+		#{t.password},
+		#{t.createDate})
+	</insert>
+
+	<delete id="delete" parameterType="BlogUsers">
+		DELETE FROM blog_users
+		<include refid="notNull"></include>
+	</delete>
+
+	<update id="update" parameterType="BlogUsers">
+		UPDATE blog_users
+		<trim prefix="set" suffixOverrides=",">
+			<if test="#{t.nickname} != null and #{t.nickname} != ''">
+				nickname = #{t.nickname},
+			</if>
+			<if test="#{t.headImg} != null and #{t.headImg} != ''">
+				headImg = #{t.headImg},
+			</if>
+			<if test="#{t.sexy} != null and #{t.sexy} != ''">
+				sexy = #{t.sexy},
+			</if>
+			<if test="#{t.email} != null and #{t.email} != ''">
+				email = #{t.email},
+			</if>
+			<if test="#{t.exp} != null and #{t.exp} != ''">
+				exp = #{t.exp},
+			</if>
+			<if test="#{t.password} != null and #{t.password} != ''">
+				password = #{t.password},
+			</if>
+			<if test="#{t.createDate} != null and #{t.createDate} != ''">
+				createDate = #{t.createDate},
+			</if>
+		</trim>
+		WHERE id = #{t.id}
+	</update>
+
+	<resultMap type="BlogUsers" id="BlogUsersMap">
+		<id column="id" property="id" />
+		<result column="nickname" property="nickname" />
+		<result column="head_img" property="headImg" />
+		<result column="sexy" property="sexy" />
+		<result column="email" property="email" />
+		<result column="password" property="password" />
+		<result column="exp" property="exp" />
+		<result column="createDate" property="createDate" />
+	</resultMap>
+
+	<select id="get" parameterType="BlogUsers" resultType="BlogUsers">
+		SELECT * FROM blog_users
+		<include refid="notNull"></include>
+	</select>
+
+	<select id="getList" parameterType="BlogUsers" resultMap="BlogUsersMap">
+		SELECT * FROM blog_users
+		<include refid="notNull"></include>
+	</select>
+
+</mapper>

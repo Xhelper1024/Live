@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.live.dao.ALiveOrderDao">
+    
+	<sql id="aLiveOrderColumns">
+		a.id AS "id",
+		a.user_id AS "userId",
+		a.money AS "money",
+		a.create_date AS "createDate"
+	</sql>
+	
+	<sql id="aLiveOrderJoins">
+	</sql>
+    
+	<select id="get" resultType="ALiveOrder">
+		SELECT 
+			<include refid="aLiveOrderColumns"/>
+		FROM a_live_order a
+		<include refid="aLiveOrderJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ALiveOrder">
+		SELECT 
+			<include refid="aLiveOrderColumns"/>
+		FROM a_live_order a
+		<include refid="aLiveOrderJoins"/>
+		<where>
+			
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="userId != null and userId != ''">
+				AND a.user_id = #{userId}
+			</if>
+			<if test="money != null and money != ''">
+				AND a.money = #{money}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				AND a.create_date = #{createDate}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ALiveOrder">
+		SELECT 
+			<include refid="aLiveOrderColumns"/>
+		FROM a_live_order a
+		<include refid="aLiveOrderJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO a_live_order(
+			user_id,
+			money,
+			create_date
+		) VALUES (
+			#{userId},
+			#{money},
+			#{createDate}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE a_live_order SET 	
+			user_id = #{userId},
+			money = #{money}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM a_live_order
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.live.dao.ALiveUsersDao">
+    
+	<sql id="aLiveUsersColumns">
+		a.id AS "id",
+		a.nickname AS "nickname",
+		a.telephone AS "telephone",
+		a.password AS "password",
+		a.head_image AS "headImage",
+		a.sexy AS "sexy",
+		a.birthday AS "birthday",
+		a.exp AS "exp",
+		a.gold AS "gold",
+		a.money AS "money",
+		a.is_streamer AS "isStreamer",
+		a.create_date AS "createDate"
+	</sql>
+	
+	<sql id="aLiveUsersJoins">
+	</sql>
+    
+	<select id="get" resultType="ALiveUsers">
+		SELECT 
+			<include refid="aLiveUsersColumns"/>
+		FROM a_live_users a
+		<include refid="aLiveUsersJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ALiveUsers">
+		SELECT 
+			<include refid="aLiveUsersColumns"/>
+		FROM a_live_users a
+		<include refid="aLiveUsersJoins"/>
+		<where>
+			
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="nickname != null and nickname != ''">
+				AND a.nickname = #{nickname}
+			</if>
+			<if test="telephone != null and telephone != ''">
+				AND a.telephone = #{telephone}
+			</if>
+			<if test="password != null and password != ''">
+				AND a.password = #{password}
+			</if>
+			<if test="headImage != null and headImage != ''">
+				AND a.head_image = #{headImage}
+			</if>
+			<if test="sexy != null and sexy != ''">
+				AND a.sexy = #{sexy}
+			</if>
+			<if test="birthday != null and birthday != ''">
+				AND a.birthday = #{birthday}
+			</if>
+			<if test="exp != null and exp != ''">
+				AND a.exp = #{exp}
+			</if>
+			<if test="gold != null and gold != ''">
+				AND a.gold = #{gold}
+			</if>
+			<if test="money != null and money != ''">
+				AND a.money = #{money}
+			</if>
+			<if test="isStreamer != null and isStreamer != ''">
+				AND a.is_streamer = #{isStreamer}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				AND a.create_date = #{createDate}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ALiveUsers">
+		SELECT 
+			<include refid="aLiveUsersColumns"/>
+		FROM a_live_users a
+		<include refid="aLiveUsersJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO a_live_users(
+			nickname,
+			telephone,
+			password,
+			head_image,
+			sexy,
+			birthday,
+			exp,
+			gold,
+			money,
+			is_streamer,
+			create_date
+		) VALUES (
+			#{nickname},
+			#{telephone},
+			#{password},
+			#{headImage},
+			#{sexy},
+			#{birthday},
+			#{exp},
+			#{gold},
+			#{money},
+			#{isStreamer},
+			#{createDate}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE a_live_users SET 	
+			nickname = #{nickname},
+			telephone = #{telephone},
+			password = #{password},
+			head_image = #{headImage},
+			sexy = #{sexy},
+			birthday = #{birthday},
+			exp = #{exp},
+			gold = #{gold},
+			money = #{money},
+			is_streamer = #{isStreamer}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM a_live_users
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

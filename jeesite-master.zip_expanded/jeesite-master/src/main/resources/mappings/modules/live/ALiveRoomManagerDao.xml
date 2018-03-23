@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.live.dao.ALiveRoomManagerDao">
+    
+	<sql id="aLiveRoomManagerColumns">
+		a.id AS "id",
+		a.user_id AS "userId",
+		a.room_id AS "roomId",
+		a.create_date AS "createDate"
+	</sql>
+	
+	<sql id="aLiveRoomManagerJoins">
+	</sql>
+    
+	<select id="get" resultType="ALiveRoomManager">
+		SELECT 
+			<include refid="aLiveRoomManagerColumns"/>
+		FROM a_live_room_manager a
+		<include refid="aLiveRoomManagerJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ALiveRoomManager">
+		SELECT 
+			<include refid="aLiveRoomManagerColumns"/>
+		FROM a_live_room_manager a
+		<include refid="aLiveRoomManagerJoins"/>
+		<where>
+			
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="userId != null and userId != ''">
+				AND a.user_id = #{userId}
+			</if>
+			<if test="roomId != null and roomId != ''">
+				AND a.room_id = #{roomId}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				AND a.create_date = #{createDate}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ALiveRoomManager">
+		SELECT 
+			<include refid="aLiveRoomManagerColumns"/>
+		FROM a_live_room_manager a
+		<include refid="aLiveRoomManagerJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO a_live_room_manager(
+			user_id,
+			room_id,
+			create_date
+		) VALUES (
+			#{userId},
+			#{roomId},
+			#{createDate}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE a_live_room_manager SET 	
+			user_id = #{userId},
+			room_id = #{roomId}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM a_live_room_manager
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

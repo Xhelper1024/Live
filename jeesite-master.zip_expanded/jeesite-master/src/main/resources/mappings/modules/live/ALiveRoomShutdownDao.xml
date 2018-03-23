@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.live.dao.ALiveRoomShutdownDao">
+    
+	<sql id="aLiveRoomShutdownColumns">
+		a.id AS "id",
+		a.room_id AS "roomId",
+		a.room_manager_id AS "roomManagerId",
+		a.shutdown_user_id AS "shutdownUserId",
+		a.shutdown_content AS "shutdownContent",
+		a.create_date AS "createDate"
+	</sql>
+	
+	<sql id="aLiveRoomShutdownJoins">
+	</sql>
+    
+	<select id="get" resultType="ALiveRoomShutdown">
+		SELECT 
+			<include refid="aLiveRoomShutdownColumns"/>
+		FROM a_live_room_shutdown a
+		<include refid="aLiveRoomShutdownJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ALiveRoomShutdown">
+		SELECT 
+			<include refid="aLiveRoomShutdownColumns"/>
+		FROM a_live_room_shutdown a
+		<include refid="aLiveRoomShutdownJoins"/>
+		<where>
+			
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="roomId != null and roomId != ''">
+				AND a.room_id = #{roomId}
+			</if>
+			<if test="roomManagerId != null and roomManagerId != ''">
+				AND a.room_manager_id = #{roomManagerId}
+			</if>
+			<if test="shutdownUserId != null and shutdownUserId != ''">
+				AND a.shutdown_user_id = #{shutdownUserId}
+			</if>
+			<if test="shutdownContent != null and shutdownContent != ''">
+				AND a.shutdown_content = #{shutdownContent}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				AND a.create_date = #{createDate}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ALiveRoomShutdown">
+		SELECT 
+			<include refid="aLiveRoomShutdownColumns"/>
+		FROM a_live_room_shutdown a
+		<include refid="aLiveRoomShutdownJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO a_live_room_shutdown(
+			room_id,
+			room_manager_id,
+			shutdown_user_id,
+			shutdown_content,
+			create_date
+		) VALUES (
+			#{roomId},
+			#{roomManagerId},
+			#{shutdownUserId},
+			#{shutdownContent},
+			#{createDate}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE a_live_room_shutdown SET 	
+			room_id = #{roomId},
+			room_manager_id = #{roomManagerId},
+			shutdown_user_id = #{shutdownUserId},
+			shutdown_content = #{shutdownContent}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM a_live_room_shutdown
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

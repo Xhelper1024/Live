@@ -1,0 +1,137 @@
+@charset "UTF-8";
+
+.logo {
+	
+}
+
+.error-element {
+	background: url('images/404.png');
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.bg {
+	left: 0px;
+	right: 0px;
+	top: 0px;
+	height: 200px;
+	margin-bottom: 35px;
+	transition: all 750ms;
+	border-radius: 15px;
+	padding: 20px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: normal;
+	color: wihte;
+}
+
+figure {
+	top: -500px;
+	position: relative;
+	transition: all 750ms;
+	color: white;
+}
+
+.bg:hover {
+	height: 300px;
+}
+
+.bg:hover figure {
+	top: 0px;
+	position: relative;
+}
+
+.bg01 {
+	background: url('images/bg01.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+
+.bg02 {
+	background: url('images/bg02.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+
+.bg03 {
+	background: url('images/bg03.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+
+.bg04 {
+	background: url('images/bg04.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+
+.bg05 {
+	background: url('images/bg05.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+
+.bg06 {
+	background: url('images/bg06.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+
+.bg07 {
+	background: url('images/bg07.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+
+.bg08 {
+	background: url('images/bg08.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+
+.bg09 {
+	background: url('images/bg09.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+
+.bg10 {
+	background: url('images/bg10.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+
+.bg11 {
+	background: url('images/bg11.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+
+.bg-normal {
+	background: url('images/bg12.jpg');
+	background-repeat: repeat;
+}
+
+.footer {
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	margin-top: 200px;
+	background: rgba(14, 14, 14, 0.4);
+}
+
+.footer table tr td, th {
+	text-align: center;
+	color: white;
+}
