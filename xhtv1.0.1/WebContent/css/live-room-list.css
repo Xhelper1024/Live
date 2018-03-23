@@ -1,0 +1,41 @@
+@CHARSET "UTF-8";
+
+.main-container {
+	margin-left: 240px;
+	bottom: 0;
+}
+
+.video-list-item-wrap {
+	cursor: pointer;
+}
+
+.liveroom-item {
+	width: 260px;
+	height: 300px;
+	background: rgba(146, 137, 137, 0.3);
+	border: 1px solid rgba(146, 140, 140, 0.0);
+	list-style: none;
+	float: left;
+	margin: 5px 10px 10px 0px;
+	position: relative;
+	transition: background 100ms, border 50ms;
+}
+
+.liveroom-item:HOVER {
+	background: rgba(146, 140, 140, 0.5);
+	border: 1px solid rgba(146, 140, 140, 0.5);
+}
+
+.liveroom-img {
+	position: absolute;
+	top: 0px;
+	bottom: 40px;
+	width: 100%;
+	background-size: cover;
+}
+
+.liveroom-title {
+	position: absolute;
+	bottom: 0px;
+}
+

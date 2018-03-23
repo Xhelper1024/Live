@@ -1,0 +1,105 @@
+@CHARSET "UTF-8";
+/* 中间直播间样式 */
+.center_display_frame {
+	position: absolute;
+	padding-right: 280px;
+}
+/*房间标题和信息*/
+.room-info {
+	font-size: 32px;
+	padding: 10px 0px;
+}
+
+/* 右侧聊天样式 */
+.right_display_frame {
+	width: 280px;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	bottom: 0px;
+	background-color: #3b3b3b;
+	border-left-color: #2b2b2b;
+	border-left-width: 1px;
+}
+/* 显示聊天消息 */
+.show_msg_div {
+	background: #333;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 253px;
+}
+/* 选择聊天表情 */
+.chooseBq {
+	overflow-y: auto;
+	background: #222;
+	position: absolute;
+	height: 150px;
+	left: 0;
+	right: 0;
+	bottom: 103px;
+	left: 0;
+}
+
+.chooseBq ul {
+	overflow: auto;
+	list-style: none;
+}
+
+.chooseBq ul li {
+	float: left;
+}
+
+/* 输入框 */
+.input_msg_div {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 103px;
+	background-color: #ededed;
+}
+
+.input_msg_div_outside {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 50px;
+	border: 1px solid #d8d8d8;
+	transition: all 200ms;
+	padding: 8px 9px;
+}
+
+.input_msg_div_outside #ta_input {
+	position: absolute;
+	padding: 8px 9px;
+	top: 0;
+	bottom: 0;
+	right: 50px;
+	border: 1px solid #d8d8d8;
+	overflow-x: hidden;
+	overflow-y: auto;
+	outline: none;
+	resize: none;
+}
+
+.send {
+	position: absolute;
+	right: 0;
+	width: 50px;
+	top: 0;
+	bottom: 0;
+	border: 1px solid #d8d8d8;
+	border-bottom-left-radius: 3px;
+	border-top-left-radius: 3px;
+	background: rgba(98, 144, 158, 0.85);
+	text-align: center;
+	line-height: 103px;
+	transition: background 200ms;
+}
+
+.send:HOVER {
+	background: rgba(65, 123, 56, 133, .8);
+}
